@@ -1,3 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Offline.AI</string>
+    <string name="app_name">Moja AI</string>
+    <string name="load_model">Učitaj model</string>
+    <string name="input_hint">Upiši poruku...</string>
+    <string name="send">Pošalji</string>
+    <string name="settings">Podešavanja</string>
+    <string name="temperature">Temperatura (0.1–2.0)</string>
+    <string name="top_p">Top P (0.0–1.0)</string>
+    <string name="context_length">Dužina konteksta</string>
+    <string name="system_prompt">Sistemski prompt</string>
+    <string name="clear_chat">Obriši razgovor</string>
+    <string name="model_path">Putanja do modela</string>
+    <string name="loading_model">Učitavam model…</string>
+    <string name="voice_input">Govor</string>
 </resources>
