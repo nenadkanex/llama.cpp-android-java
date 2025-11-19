@@ -171,10 +171,39 @@ class LLamaAndroid {
             data object Idle: State
             data class Loaded(val model: Long, val context: Long, val batch: Long, val sampler: Long): State
         }
+// File picker za GGUF modele
+private void pickModelFile() {
+    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+    intent.addCategory(Intent.CATEGORY_OPENABLE);
+    intent.setType("*/*");
+    startActivityForResult(intent, 100);
+}
 
+// Govor u tekst
+public void onVoiceClick(android.view.View v) {
+    Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "sr-RS");
+    intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Govori sada...");
+    startActivityForResult(intent, 200);
+}
+
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
+        String path = data.getData().getPath();
+        loadModel(path); // poziva tvoju funkciju za učitavanje
+        Toast.makeText(this, "Model učitan: " + path, Toast.LENGTH_LONG).show();
+    }
+    if (requestCode == 200 && resultCode == RESULT_OK && data != null) {
+        ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+        inputEditText.setText(result.get(0));
+    }
+}
         // Enforce only one instance of Llm.
         private val _instance: LLamaAndroid = LLamaAndroid()
 
         fun instance(): LLamaAndroid = _instance
     }
 }
+
