@@ -16,11 +16,18 @@ jobs:
       - name: Install Android SDK
         uses: android-actions/setup-android@v3
       
+      - name: Install NDK r26b
+        run: |
+          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME "ndk;26.1.10909125"
+          export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/26.1.10909125
+      
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       
       - name: Build with Gradle
         run: ./gradlew assembleDebug
+        env:
+          ANDROID_NDK_HOME: ${{ env.ANDROID_NDK_HOME }}
       
       - name: Upload APK
         uses: actions/upload-artifact@v4
