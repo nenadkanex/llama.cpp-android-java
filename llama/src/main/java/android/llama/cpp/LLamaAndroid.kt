@@ -62,6 +62,11 @@ class LLamaAndroid {
     private external fun system_info(): String
 
     private external fun completion_init(
+        llama.setNThreads(4);           // 4 velika jezgra Dimensity 8350
+llama.setBatchSize(1);          // nikad ne pada >7B
+llama.setContextSize(8192);     // max za 12/16 GB RAM verziju
+llama.setTemperature(0.8f);
+llama.setTopP(0.95f);
         context: Long,
         batch: Long,
         text: String,
